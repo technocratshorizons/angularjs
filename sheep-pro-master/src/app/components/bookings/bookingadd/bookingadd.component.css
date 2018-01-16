@@ -1,0 +1,17 @@
+.join-container
+{
+	border: 1px solid black;
+	padding: 20px;
+	margin: 10px 0px;
+}
+.btn-del
+{
+	position: absolute;
+    top: -10px;
+    right: -10px;
+    border-radius: 50%;
+}
+.pos-rel
+{
+	position: relative;
+}

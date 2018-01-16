@@ -1,0 +1,267 @@
+<appheader></appheader>
+<appsidebar></appsidebar>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+	  	<h1>
+			Bookings
+			<small>Booking</small>
+	  	</h1>
+	  	<ol class="breadcrumb">
+			<li><a routerLink="/dashboard" ><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a routerLink="/booking/list" >Booking List</a></li>
+	  	</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+	  			<div class="box">
+					<div class="box-header">
+		 				<div class="row">
+			  				<div class="col-md-8">
+				  				<h3 class="box-title">Booking List</h3>
+			  				</div>
+			  				<div class="col-md-4 text-right">
+				  				<a routerLink="/booking/add" class="btn btn-sm btn-primary">Add New</a>
+			  				</div>
+						</div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+		   				<form (submit)="filterById()" style="margin-bottom: 20px;">
+							<div class="row">
+							  	<div class="col-md-4">
+									<label>Start - End </label>
+									<input type="text" class="form-control"  bsDaterangepicker  [bsConfig]="bsConfig" [(ngModel)]="min" name="min" (ngModelChange)="onChange($event)" value="{{max}}" readonly placeholder="Select Date Range">							
+							  	</div>
+							  	<div class="col-md-4">
+							  	 	<div class="form-group">
+			                        	<label>Scanner</label>
+			                        	<select  data-live-search="true" [(ngModel)]="scanner" name="scanner"  id="role-select" class="form-control scanner" readonly>
+			                        		<option value="">Select Scanner</option>
+			                            	<option  *ngFor="let scanner of scanners" value="{{ scanner.first_name }} {{ scanner.last_name }}"  >{{ scanner.first_name }} {{ scanner.last_name }}</option>
+			                        	</select>
+			                    	</div>
+							  	</div>
+							  	<div class="col-md-4">
+									<button class="btn btn-primary" type="submit" style="margin-top: 24px;">Filter Bookings</button>	
+							  	</div>
+							</div>
+						</form>
+		  				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="display  dataTable nowrap" width="100%">
+							<thead>
+								<tr>
+								  	<th>Date</th>
+								  	<th>Type</th>
+								  	<th>Client</th>
+								  	<th>Sheep</th>
+								  	<th style="width:100px !important;">Scanners</th>
+								  	<th>Status</th>
+								  	<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let booking of bookings">
+								  	<td>{{ booking.booking_date | date:'dd-MM-yyyy' }}</td>
+								  	<!-- <td>{{ booking.time }}</td> -->
+								  	<td>
+								  		<span *ngIf="booking.scan_type=='Single'">WET/DRY</span>
+										<span *ngIf="booking.scan_type!='Single'">Multiples</span>
+									</td>
+								  	<td>{{ booking.client_first_name }} {{ booking.client_last_name }}</td>
+								  	<td>{{ booking.number_of_sheep }}</td>
+								  	<td style="width:100px !important;"><p style="width: 237px; white-space: normal;">{{ booking.scanners }}</p></td><td>
+								  		<label class="label label-warning" *ngIf="booking.google_delete=='Yes'">Deleted from google</label>
+								  		<label class="label label-warning" *ngIf="booking.google_delete=='Not' && booking.status=='booking-pending'">Booking Date Pending</label>
+
+								  		<label class="label label-warning" *ngIf="booking.google_delete=='Not' && booking.status=='pending'">Pending</label>
+								  		<label class="label label-primary" *ngIf="booking.google_delete=='Not' && booking.status=='scheduled'">Scheduled</label>
+								  		<label class="label label-success" *ngIf="booking.google_delete=='Not' && booking.status=='completed'">Completed</label>
+								  		<label class="label label-danger" *ngIf="booking.google_delete=='Not' && booking.status=='canceled'">Canceled</label>
+								  	</td>
+								  	<td>
+										<!-- <button title="View Booking" (click)="onView(booking)" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></button>
+
+										<a style="margin:2px 0px" *ngIf="booking.google_delete=='Not'" title="Edit Booking" [routerLink]="['/booking/edit/', booking.join_id]" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a> -->
+										<!-- <div *ngIf="_session?.user_type=='Admin'"> -->
+											<!-- <div *ngIf="booking.google_delete=='Not'">
+												
+											</div> -->
+											
+
+											<!-- <button style="margin:2px 0px" (click)="RegenrateBooking(booking)"  class="btn btn-sm btn-warning" *ngIf="booking.google_delete=='Yes'" title="Mark as Pending">Regenerate Events</button> -->
+
+											<div class="btn-group" dropdown [isDisabled]="booking.isDisable">
+											  	<button dropdownToggle type="button" class="btn btn-primary btn-sm dropdown-toggle">{{ booking.action }}<span class="caret"></span>
+											  	</button>
+											  	<ul *dropdownMenu class="dropdown-menu" role="menu">
+												
+													<li style="cursor:pointer;" role="menuitem">
+											    		<a class="dropdown-item" (click)="onView(booking)"><i class="fa fa-eye" aria-hidden="true"></i> View Booking</a>
+											    	</li>
+
+											    	<li style="cursor:pointer;" role="menuitem" *ngIf="booking.google_delete=='Not'">
+											    		<a class="dropdown-item" [routerLink]="['/booking/edit/', booking.join_id]" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit Booking</a>
+											    	</li>
+
+												  	<li style="cursor:pointer;" role="menuitem" *ngIf="booking.status!='scheduled' && booking.status!='booking-pending' && _session?.user_type=='Admin' && booking.google_delete=='Not'">
+											    		<a class="dropdown-item" (click)="onStatusChange(booking,'scheduled')"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Approve Booking</a>
+											    	</li>
+													
+													<li style="cursor:pointer;" role="menuitem" *ngIf="booking.status!='completed' && booking.status!='booking-pending' && _session?.user_type=='Admin' && booking.google_delete=='Not'">
+											    		<a class="dropdown-item" (click)="onStatusChange(booking,'completed')"><i class="fa fa-check" aria-hidden="true"></i> Complete Booking</a>
+											    	</li>										
+
+
+													<li style="cursor:pointer;" role="menuitem" *ngIf="booking.status!='canceled' && booking.status!='booking-pending' && _session?.user_type=='Admin' && booking.google_delete=='Not'">
+											    		<a class="dropdown-item" (click)="onStatusChange(booking,'canceled')"><i class="fa fa-times" aria-hidden="true"></i> Cancel Booking</a>
+											    	</li>
+													
+											    	<li style="cursor:pointer;" role="menuitem" *ngIf="booking.status!='pending' && booking.status!='booking-pending' && _session?.user_type=='Admin' && booking.google_delete=='Not'">
+											    		<a class="dropdown-item" (click)="onStatusChange(booking,'pending')"><i class="fa fa-clock-o" aria-hidden="true"></i> Mark as Pending</a>
+											    	</li>
+											    	<li style="cursor:pointer;" role="menuitem" *ngIf="booking.google_delete=='Yes' && booking.status!='booking-pending' ">
+											    		<a class="dropdown-item" (click)="RegenrateBooking(booking)"><i class="fa fa-plus" aria-hidden="true"></i>Regenerate Events</a>
+											    	</li>
+
+												</ul>
+											</div>
+										<!-- </div> -->
+								  	</td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+								  	<th>Date</th>
+								  	<!-- <th>Start</th> -->
+								  	<th>Type</th>
+								  	<th>Client</th>
+								  	<th>Sheep</th>
+								  	<th>Scanners</th>
+								  	<th>Status</th>
+								  	<th>Action</th>
+								</tr>
+							</tfoot>
+		  				</table>
+					</div>
+					<!-- /.box-body -->
+	  			</div>
+	  			<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!--Modal-->
+		<template #childModal class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-body">
+			   		<div class="row">
+				  		<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4>
+									Booking Info <label class="label label-warning" *ngIf="selectedBooking?.status=='pending'">Pending</label>
+								  		<label style="padding: 1px; font-size: 11px; margin-left: 5px;" class="label label-primary" *ngIf="selectedBooking?.status=='scheduled'">Scheduled</label>
+								  		<label style="padding: 1px; font-size: 11px; margin-left: 5px;" class="label label-success" *ngIf="selectedBooking?.status=='completed'">Completed</label>
+								  		<label style="padding: 1px; font-size: 11px; margin-left: 5px;" class="label label-danger" *ngIf="selectedBooking?.status=='canceled'">Canceled</label>
+								  		<span class="joining_date">Appointment Date: {{ selectedBooking?.booking_date | date:'dd-MM-yyyy' }} - {{ selectedBooking?.booking_date_end | date:'dd-MM-yyyy' }}</span>
+									<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+									  <span aria-hidden="true">&times;</span>
+									</button>
+								</h4>
+							</div>
+							<div class="panel-body">
+								<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12" >
+									<div class="row" style="border-bottom: 1px solid #dddddd; margin-bottom: 10px;">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Client Details</label>
+											<p>{{ selectedBooking?.client_first_name }} {{ selectedBooking?.client_last_name }}</p>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Number of sheep</label>
+											<p>{{ selectedBooking?.number_of_sheep }}</p>
+										</div>
+									</div>
+									<div class="row" style="border-bottom: 1px solid #dddddd; margin-bottom: 10px;">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Scan Type</label>
+											<p><span *ngIf="selectedBooking?.scan_type=='Single'">WET/DRY</span>
+											<span *ngIf="selectedBooking?.scan_type!='Single'">Multiples</span></p>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Appointment Date</label>
+											<p>{{ selectedBooking?.booking_date | date:'dd-MM-yyyy' }} - {{ selectedBooking?.booking_date_end | date:'dd-MM-yyyy' }}</p>
+										</div>
+									</div>
+									<div class="row" style="border-bottom: 1px solid #dddddd; margin-bottom: 10px;">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Ram In</label>
+											<p>{{ selectedBooking?.room_in | date:'dd-MM-yyyy' }}</p>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Ram Out</label>
+											<p>{{ selectedBooking?.room_out | date:'dd-MM-yyyy' }}</p>
+										</div>
+									</div> 
+									<div class="row" style="border-bottom: 1px solid #dddddd; margin-bottom: 10px;">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Introduced days</label>
+											<p>{{ selectedBooking?.introduced_days }}</p>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Joining Duration</label>
+											<p>{{ selectedBooking?.joining_duration }}</p>
+										</div>
+									</div>
+									<div class="row" style="border-bottom: 1px solid #dddddd; margin-bottom: 10px;">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Rams free days</label>
+											<p>{{ selectedBooking?.room_free_days }}</p>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Date To Scan</label>
+											<p>{{ selectedBooking?.date_to_scan | date:'dd-MM-yyyy' }}</p>
+										</div>
+									</div>
+									<div class="row" style="border-bottom: 1px solid #dddddd; margin-bottom: 10px;">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label for="">Scanners</label>
+											<ul>
+												<li *ngFor="let scanner of selectedBooking?.scanners">{{ scanner?.first_name }} {{ scanner?.last_name }}</li>
+											</ul>
+										</div>
+									</div>
+									<div class="row" style="border-bottom: 1px solid #dddddd; margin-bottom: 10px;"> <div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Unavailable Dates</label>
+											<ul>
+												<li *ngFor="let datess of selectedBooking?.unavailable_dates"><span *ngIf="datess!=''">{{ datess | date:'dd-MM-yyyy' }}</span></li>
+											</ul>
+											<!-- <p>{{ selectedBooking?.unavailable_dates }}</p> -->
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<label for="">Client Confirmation</label>
+											<ul>
+											   <li> Email: <span *ngIf="selectedBooking?.client_confirmation_email=='1'">Yes</span><span *ngIf="selectedBooking?.client_confirmation_email=='0'">No</span></li>
+												<li> SMS: <span *ngIf="selectedBooking?.client_confirmation_sms=='1'">Yes</span><span *ngIf="selectedBooking?.client_confirmation_sms=='0'">No</span></li>
+											</ul>
+										</div>
+									</div>
+									<div class="row" >
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label for="">Notes</label>
+											<p>{{ selectedBooking?.notes }}</p>
+										</div>
+									</div>    
+								</div>
+							</div>
+				  		</div>
+			  		</div>
+				</div>
+			</div>
+		</template>
+		<!--enf of modal-->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<appfooter></appfooter>

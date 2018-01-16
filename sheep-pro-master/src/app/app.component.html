@@ -1,0 +1,58 @@
+<simple-notifications [options]="options"></simple-notifications>
+<jaspero-confirmations [defaultSettings]="options"></jaspero-confirmations>
+<router-outlet></router-outlet>
+<style>
+.lds-css{
+position: absolute;
+   top: 45%;
+    left: 53%;
+}
+@keyframes lds-dual-ring {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes lds-dual-ring {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.lds-dual-ring {
+  position: relative;
+}
+.lds-dual-ring div {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  top: 20px;
+  left: 20px;
+  border-radius: 50%;
+  border: 8px solid #000;
+  border-color: #3c8dbc transparent #3c8dbc transparent;
+  -webkit-animation: lds-dual-ring 1s linear infinite;
+  animation: lds-dual-ring 1s linear infinite;
+}
+.lds-dual-ring {
+  width: 118px !important;
+  height: 118px !important;
+  -webkit-transform: translate(-59px, -59px) scale(0.59) translate(59px, 59px);
+  transform: translate(-59px, -59px) scale(0.59) translate(59px, 59px);
+}
+</style>
+<div class="loading-overlay" #spinnerElement style="display: block">
+  <div class="lds-css ng-scope">
+    <div style="width:100%;height:100%" class="lds-dual-ring">
+      <div></div>
+    </div>
+  </div>
+</div>

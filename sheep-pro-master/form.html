@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+
+    <!-- Jquery Validate Start -->
+	<script type="text/javascript" src="validate/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="validate/dist/additional-methods.min.js"></script>
+    
+    <!-- Bootstrap DateRangePicker Start -->
+	<script type="text/javascript" src="validate/bootstrap-daterangepicker-master/daterangepicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="validate/bootstrap-daterangepicker-master/daterangepicker.css" />
+
+    <!-- Bootstrap Datepicker start here -->
+	<script type="text/javascript" src="validate/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="validate/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+    
+    <!-- Bootstrap Selectpiker Start here -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="validate/bootstrap-select-1.12.4/dist/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="validate/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- Ladda Loader Start -->
+    <link rel="stylesheet" href="validate/Ladda-master/dist/ladda.min.css">
+    <script src="validate/Ladda-master/dist/spin.min.js"></script>
+    <script src="validate/Ladda-master/dist/ladda.min.js"></script>
+    <style>
+			.container {
+			width: 75%;
+			margin: 0 auto;
+			}
+			.header_col h5 span {
+			display: block;
+			font-weight: bold;
+			}
+			.header_col h5 {
+			font-size: 20px;
+			line-height: 1.5;
+			max-width: 75%;
+			padding-left: 80px;
+			}
+			header h4 {
+			font-size: 22px;
+			text-align: center;
+			letter-spacing: 1px;
+			}
+
+			.main-heading h2 {
+			font-family: 'Abel', sans-serif;
+			text-align: center;
+			}
+
+			body {
+			margin: 0;
+			background-color: #EBF0F6;
+			font-family: 'Abel', sans-serif;
+			}
+
+			.main-heading p {
+			text-align: center;
+			font-family: 'Abel', sans-serif;
+			font-size: 18px;
+			}
+
+			.form-group {
+			width: 49%;
+			float: left;
+			margin-bottom: 20px;
+			position:relative;
+			}
+
+			.form-group-full {
+			width: 100%;
+			margin-bottom: 20px;
+			clear: both;
+			position:relative;
+			}
+			.scanners label.error {
+			bottom: -27px;
+			}
+			.mr1 {
+			margin-right: 1%;
+			}
+
+			.ml1 {
+			margin-left: 1%;
+			}
+
+			label {
+			font-size: 18px;
+			font-weight: 600;
+			}
+
+			.form-group-half {
+			width: 23.5%;
+			float: left;
+			position:relative;
+			margin-bottom: 20px;
+			}
+
+			label.error {
+			position:  absolute;
+			bottom: -20px;
+			left:  0;
+			}
+			.form-group .input-group{
+			margin-top: 8px;
+			}
+			label#mobile_phone-error {
+			bottom: -50px;
+			}
+			.divider {
+			clear: both;
+			margin-top: 40px;
+			}
+
+			.form-group-small {
+			width: 23.5%;
+			float: left;
+			}
+
+			.mr2 {
+			margin-right: 2%;
+			}
+
+			.ml2 {
+			margin-left: 2%;
+			}
+
+			.radio-wrap {
+			font-size: 22px;
+			margin-top: 10px;
+			}
+
+			.common-heading {
+			clear: both;
+			color: #29ABE2;
+			font-size: 23px;
+			}
+
+			.add-btn button {
+			background: #28b3f7;
+			border: 0;
+			color: #ffffff;
+			margin: 20px 0;
+			font-size: 22px;
+			padding: 11px 26px;
+			}
+
+			.roam {
+			position: relative;
+			}
+
+			.roam:after {
+			position: absolute;
+			content: "\f073";
+			font-family: fontawesome;
+			right: 11px;
+			top: 49px;
+			font-size: 18px;
+			}
+
+			.wrap4 {
+			margin-top: 30px;
+			}
+
+
+			input,
+			select,
+			textarea {
+			width: 100%;
+			padding: 12px 15px;
+			margin: 8px 0;
+			display: inline-block;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			}
+
+			input[type=submit] {
+			width: auto;
+			background-color: #28b3f7;
+			color: white;
+			padding: 14px 47px;
+			margin: 8px 0;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 21px;
+			}
+
+			[type="radio"]:checked,
+			[type="radio"]:not(:checked) {
+			position: absolute;
+			left: -9999px;
+			}
+
+			[type="radio"]:checked + label,
+			[type="radio"]:not(:checked) + label {
+			position: relative;
+			padding-left: 28px;
+			cursor: pointer;
+			line-height: 20px;
+			display: inline-block;
+			color: #666;
+			margin-right: 15px;
+			}
+
+			[type="radio"]:checked + label:before,
+			[type="radio"]:not(:checked) + label:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 18px;
+			height: 18px;
+			border: 1px solid #ddd;
+			border-radius: 100%;
+			background: #fff;
+			}
+
+			[type="radio"]:checked + label:after,
+			[type="radio"]:not(:checked) + label:after {
+			content: '';
+			width: 10px;
+			height: 10px;
+			background: #28b3f7;
+			position: absolute;
+			top: 4px;
+			left: 4px;
+			border-radius: 100%;
+			-webkit-transition: all 0.2s ease;
+			transition: all 0.2s ease;
+			}
+
+			[type="radio"]:not(:checked) + label:after {
+			opacity: 0;
+			-webkit-transform: scale(0);
+			transform: scale(0);
+			}
+
+			[type="radio"]:checked + label:after {
+			opacity: 1;
+			-webkit-transform: scale(1);
+			transform: scale(1);
+			}
+
+			.container2 {
+			display: inline-block;
+			position: relative;
+			padding-left: 35px;
+			margin-bottom: 12px;
+			cursor: pointer;
+			font-size: 20px;
+			margin-right: 19px;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			}
+			/* Hide the browser's default checkbox */
+
+			.container2 input {
+			position: absolute;
+			opacity: 0;
+			}
+			/* Create a custom checkbox */
+
+			span.checkmark {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 25px;
+			width: 25px;
+			background-color: #d0d0d0;
+			}
+			/* On mouse-over, add a grey background color */
+
+			.container2:hover input ~ .checkmark {
+			background-color: #ccc;
+			}
+			/* When the checkbox is checked, add a blue background */
+
+			.container input:checked ~ .checkmark {
+			background-color: #2196F3;
+			}
+			/* Create the checkmark/indicator (hidden when not checked) */
+
+			.checkmark:after {
+			content: "";
+			position: absolute;
+			display: none;
+			}
+			/* Show the checkmark when checked */
+
+			.container2 input:checked ~ .checkmark:after {
+			display: block;
+			}
+			/* Style the checkmark/indicator */
+
+			.container2 .checkmark:after {
+			left: 9px;
+			top: 5px;
+			width: 5px;
+			height: 10px;
+			border: solid white;
+			border-width: 0 3px 3px 0;
+			-webkit-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			transform: rotate(45deg);
+			}
+
+			input[type=submit]:hover {
+			background-color: #28b3f7;
+			}
+			.error{
+			color: red;
+			font-size: 15px;
+			font-weight: 400;
+			}
+			.divider{ clear: both !important;
+			margin-top: 40px !important;
+			height: 1px !important !important;
+			border-top: 1px solid #1d1d1d !important;
+			}
+			.cust-icon {
+			color: red; margin-left: 10px; border: 1px solid red; border-radius: 50%; padding: 2px 3px; font-size: 18px;cursor:pointer;
+			}
+			.bootstrap-select .dropdown-toggle {
+			height: 46px; margin-top: 8px;
+			}
+			.bootstrap-select .dropdown-toggle:focus,.bootstrap-select .dropdown-toggle:active {
+			height: 50px;    background: white;
+			color: #999;
+			}
+			.ladda-button,.ladda-button:hover,.ladda-button:active,.ladda-button:focus
+			{
+			background: #28b3f7;
+			border: 0;
+			color: #ffffff;
+			margin: 20px 0;
+			font-size: 22px;
+			padding: 11px 53px;
+			}
+			footer h2 {
+			font-size: 26px;
+			line-height: 1.2;
+			margin-bottom: 30px;
+			}
+			footer span {
+			text-align: center;
+			display: block;
+			font-weight: bold;
+			padding:15px 0;
+			}
+			header h1 {
+			font-size: 60px;
+			color: #008080;
+			text-align: center;
+			padding: 15px 0;
+			}
+			header {
+			background: #eee;
+			padding-bottom: 30px;
+			}
+			footer {
+			background: #eee;
+			}
+			.main_sec {
+			padding: 30px 0;
+			}
+			@media(max-width:1250px){
+			.header_col h5 {
+    padding-left: 65px;
+			}
+    </style>
+</head>
+
+<body>
+    <section>
+	<header>
+		<div class="container">
+			<div class="row">
+			<h1>SheepPro</h1>
+			<h4>ULTRASOUND PREGNANCY TESTING & WEIGHING (RFID COMPLIANT)</h4>
+			<div class="col-md-4 header_col">
+				<h5>
+				<span>Address</span>
+				Yarramundi
+				1455 Carapook Rd      
+				CARAPOOK  VIC  3312
+				</h5>
+			</div>
+			<div class="col-md-4 header_col">
+			<h5>
+				<span>Ph / Fax & Mobile</span>
+				(03) 55 798 585
+				0428 386 924      
+				</h5>
+			</div>
+			<div class="col-md-4 header_col">
+			<h5>
+				<span>Web Site & Email</span>
+				www.sheeppro.com.au
+				mark@sheeppro.com.au     
+				</h5>
+			</div>
+			</div>
+		</div>
+	</header>
+        <div class="container main_sec">
+           <!-- <div class="main-heading">
+                <h2>Header</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed tempor and vitality, so that the labor and sorrow, some important things to do eiusmod. Over the years, I will come, who will nostrud aliquip out of her the advantage of exercise,
+                    so that stimulus efforts if the school district and longevity. Want to be a pain in the cupidatat cillum has been criticized in the Duis et dolore magna flee produces no resultant pleasure. Excepteur cupidatat blacks are not excepteur,
+                    is soothing to the soul, that is, they deserted the general duties of those who are to blame for your troubles.</p>
+            </div>-->
+
+            <div>
+                <form action="#" id="commentForm">
+                    <div class="form-group mr1">
+                        <label for="fname">First Name</label>
+                        <input type="text" id="first_name" name="first_name" class="required" placeholder="Your Name">
+                    </div>
+
+                    <div class="form-group ml1">
+                        <label for="lname">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" class="required" placeholder="Your Last Name">
+                    </div>
+
+                    <div class="form-group-full">
+                        <label for="lname">Company</label>
+                        <input type="text" id="company" name="company" class="required" placeholder="Your Company Name">
+                    </div>
+
+                    <div class="form-group mr1">
+                        <label for="fname">Email 1</label>
+                        <input type="email" id="email" class="required" name="email" placeholder="Your Email 1">
+                    </div>
+
+                    <div class="form-group ml1">
+                        <label for="lname">Email 2</label>
+                        <input type="email" id="secondary_email" name="secondary_email" placeholder="Your Email 2">
+                    </div>
+
+                    <div class="form-group mr1" style="clear:both">
+                        <label for="fname">Mobile Number</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                +61
+                            </div>
+                            <input style="margin: 0px; height: 47px;" type="tel" class="form-control required" id="mobile_phone" placeholder="Mobile Phone" name="mobile_phone" minlength="9" maxlength="9" required > </div>
+                        <span class="help-block">(e.g 491570156)</span>
+                    </div>
+
+                    <div class="form-group ml1">
+                        <label for="lname">Landline Phone</label>
+                        <input type="tel" id="landline_phone" name="landline_phone" placeholder="Your Phone 2">
+                    </div>
+
+                    <div class="form-group-full">
+                        <label for="lname">Address Line 1</label>
+                        <input type="text" id="address_1" name="address_1" class="required" placeholder="Your Address Line 1">
+                    </div>
+
+                    <div class="form-group-full">
+                        <label for="lname">Address Line 2</label>
+                        <input type="text" id="address_2" name="address_2" placeholder="Your Address Line 2">
+                    </div>
+
+                    <div class="form-group mr1">
+                        <label for="lname">Suburb</label>
+                        <input type="text" id="suburb" name="suburb" class="required" placeholder="Your Suburb">
+                    </div>
+
+                    <div class="form-group-half ml1 mr1">
+                        <label for="lname">Postcode</label>
+                        <input type="text" id="post_code" name="post_code" class="required" placeholder="Your Postcode">
+                    </div>
+
+                    <div class="form-group-half ml1">
+                        <label for="lname">State</label>
+                        <input type="text" id="state" name="state" class="required" placeholder="Your State">
+                    </div>
+
+                    <hr class="divider">
+                   	<div class="booking-group-main">
+                   		<div class="booking-group removeClassDiv" rel="0">
+				          <h3 class="common-heading"><span class="order-group">Joining 1</span><i class="fa fa-times cust-icon" onclick="removeDiv(this)"></i></h3> <div class="form-group mr1">
+		                        <label for="lname">Number of Sheep</label>
+		                        <input type="tel" id="number_of_sheep[0]" class="required" name="number_of_sheep[0]" placeholder="">
+		                    </div>
+		                    <div class="form-group-half ml1 mr1">
+		                        <label for="lname">Scan Type</label>
+		                        <div class="radio-wrap">
+		                            <input type="radio" id="scan_type[0]Single" name="scan_type[0]" class="required" value="Single" checked>
+		                            <label for="scan_type[0]Single">Wet/Dry</label>
+									<input type="radio" id="scan_type[0]Multiple" name="scan_type[0]" class="required" value="Multiple">
+		                            <label for="scan_type[0]Multiple">Multiples</label>
+		                        </div>
+		                    </div>
+
+		                  <!--   <div class="form-group-half ml1 scanner_list">
+		                        <label for="lname">Select Scanneres</label>
+		                        <select id="scanners_name[0][]" name="scanners_name[0][]" class="required scanners" multiple>
+		                		</select>
+		                    </div> -->
+
+		                    <h3 class="common-heading">Rams In/Out - Rams Out Date</h3>
+		                    <div class="form-group-full">
+		                        <label for="lname">Rams In Date - Rams Out Date</label>
+		                        <input type="text" id="daterange" class="required" name="daterange[0]" placeholder="Your Roms In Date">
+		                    </div>	
+		                    <hr class="divider">
+                   		</div>
+                   	</div>
+                    <div class="add-btn">
+                        <button type="button" id="addjoining_btn" value="addjoining">+ Add Joining</button>
+                    </div>
+                    <hr>      		
+                    <div class="wrap4">
+                        <div class="form-group mr1 roam">
+                            <label for="lname">Unavailable Dates</label>
+                            <input type="text" id="unavailable_dates" class="unavailable_dates" name="unavailable_dates" placeholder="">
+                        </div>
+                        <div class="form-group ml1 ">
+                            <label for="lname">Do you require EID</label>
+                            <div class="radio-wrap">
+                               <!--   <div class="radio-wrap"> -->
+                                    <input type="radio" id="Notifications-yes" name="Notifications" class="required" value="yes" checked>
+                                    <label for="Notifications-yes">Yes</label>
+                                    <input type="radio" id="Notifications-no" name="Notifications" class="required" value="no">
+                                    <label for="Notifications-no">No</label>
+                                <!-- </div> -->
+
+                            </div>
+                        </div>
+
+                        <div class="form-group-full">
+                            <label for="lname">Notes</label>
+                            <textarea rows="10" cols="50" name="notes"></textarea>
+                        </div>
+                    </div>
+                    <div class="submit-btn">
+                        <button class="ladda-button" data-style="expand-right"><span class="ladda-label">Submit</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+		<footer>
+		<div class="container">
+		<h2><span>Optimum time for scanning;</span>
+Wet  /  Dry,45  days  after  rams  removed  from  ewes. Multiples,75-95  days  from  the rams  being  introduced. Multiple identification  is  not  possible  after  95  days  from  date  of ram introduction.</h2>
+</div>
+		</footer>   
+		</section>
+	
+    <script>
+    var common = 1;
+    var scanners_all = "";
+        $(function() {
+        	$("#commentForm").validate({
+                submitHandler: function (form) {
+                    var l = Ladda.create( document.querySelector( '.ladda-button' ) );
+                    l.start();
+                    formData = $('#commentForm').serialize();
+                    $.ajax({
+                        url: 'http://staging.technocratshorizons.com/sheeptimer/server/booking/saveEmptyBooking',
+                        type: 'POST',
+                        dataType: 'json',
+                        data:formData,
+                        success: function(data){
+                            if(data.status) {
+                                alert(data['msg']);
+                                window.location.reload();
+                            } else {
+                                alert(data['msg']);
+                            }
+                            l.stop();
+                        }
+                    })   
+                }
+            });
+    		$('input[name="daterange[0]"]').daterangepicker({	
+				locale: {
+			      format: 'DD-MM-YYYY'
+			    }
+			},function(start, end, label) {
+                
+            });
+    		$('#addjoining_btn').on('click',function(){
+    			var html_content = $('.booking-group:first').clone();
+    			html_content = $(html_content);
+    			html_content.find('input').val('');
+    			var temp_index = $('.booking-group:first').attr('rel');
+    			html_content.attr('rel',common);
+				var re = new RegExp(temp_index,"g");
+    			html_content.children().each(function() {
+        			$(this).html($(this).html().replace(re,common));
+    			});
+                // var str = '<label for="lname">Select Scanneres</label>'
+                //                 +'<select id="scanners_name['+common+'][]" name="scanners_name['+common+'][]" class="required scanners" multiple>'
+                //                 +'<option value="" disabled>Select Scanner</option>';
+                // $.each(scanners_all,function(i,v){
+                //     str += '<option value="'+v.user_id+'">'+v.first_name+' '+v.last_name+' ('+v.email+')</option>';
+                // });
+                // str += '</select>';   
+
+                // html_content.find('.scanner_list').html(str);
+                // html_content.find('.scanner_list').children('select').selectpicker('refresh');
+
+    			html_content.find('input[name="daterange['+common+']"]').daterangepicker({	
+				locale: {
+			      format: 'DD-MM-YYYY'
+			    }
+				},function(start, end, label) {});
+    			$('.booking-group-main').append(html_content);
+    			common++;
+    			var tempindex = 1;
+    			$('.order-group').each(function(){
+    				$(this).html('Joining '+tempindex);
+    				tempindex++;
+    			})
+    		});
+    		$('.unavailable_dates').datepicker({
+                multidate: true,
+                format: 'dd-mm-yyyy'
+            }).on('changeDate',function(e){
+                
+            })
+            // $('select.scanners').selectpicker();
+            // //Get Scanner List here
+            // $.ajax({
+            //     url: 'http://staging.technocratshorizons.com/sheeptimer/server/users/getusers/scanner',
+            //     type: 'GET',
+            //     dataType: 'json',
+            //     success: function(data){
+            //         $('select.scanners').html('<option value="" disabled    >Select Scanner</option>');
+            //         if(data.status) {
+            //             scanners_all = data.data;
+            //             $.each(data.data,function(i,v){
+            //                 $('select.scanners').append('<option value="'+v.user_id+'">'+v.first_name+' '+v.last_name+' ('+v.email+')</option>');
+            //                 $('select.scanners').selectpicker('refresh');
+            //             });
+            //         }
+            //     }
+            // })            
+		});
+		function removeDiv(obj){
+			if($('.booking-group').length > 1){
+				$(obj).parents('.booking-group').remove();
+				var tempindex = 1;
+				$('.order-group').each(function(){
+					$(this).html('Joining '+tempindex);
+					tempindex++;
+				})
+			}else {
+				alert('At least one required');
+			}
+		}
+    </script>
+</body>
+
+</html>

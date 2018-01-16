@@ -1,0 +1,137 @@
+<div [formGroup]="joiningForm">
+    <div class="row">
+        <div class="col-md-3 col-sm-4 col-xs-12">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.number_of_sheep.invalid && (joiningForm.controls.number_of_sheep.dirty || joiningForm.controls.number_of_sheep.touched) }">
+                <label for="exampleInputEmail1">Number of sheep <span style="color:red;">*</span></label>
+                <input type="text"  class="form-control" formControlName="number_of_sheep" placeholder="100">
+                <div *ngIf="joiningForm.controls.number_of_sheep.invalid && (joiningForm.controls.number_of_sheep.dirty || joiningForm.controls.number_of_sheep.touched)" class="help-block">
+                    Number of sheep field required
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4 col-xs-12">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.scan_type.invalid && (joiningForm.controls.scan_type.dirty || joiningForm.controls.scan_type.touched) }">
+                <label for="exampleInputEmail1">Scan Type <span style="color:red;">*</span></label>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="radio" [checked]="true" value="Single" formControlName="scan_type">
+                        <label for="">WET/DRY</label>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="radio" value="Multiple" formControlName="scan_type">
+                        <label for="">Multiples</label>
+                    </div>
+                </div>
+                <div *ngIf="joiningForm.controls.scan_type.invalid && (joiningForm.controls.scan_type.dirty || joiningForm.controls.scan_type.touched)" class="help-block">
+                   Scan type required
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4 col-xs-12">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.booking_date.invalid && (joiningForm.controls.booking_date.dirty || joiningForm.controls.booking_date.touched) }">
+                <label for="exampleInputEmail1">Appointment Date<span style="color:red;">*</span></label>
+                <div class="input-group">
+                    <input type="text" class="form-control" 
+                     bsDaterangepicker [(ngModel)]="bsRangesValue" formControlName="booking_date" [bsConfig]="bsConfig" value="{{ joiningForm.controls.booking_date.value[0] | date:'dd-MM-yyyy' }} - {{ joiningForm.controls.booking_date.value[1] | date:'dd-MM-yyyy' }}" readonly>
+                    <div class="input-group-addon"  >
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+                <label for="">Ideal Date {{ joiningForm.controls.date_to_scan | scanDate:joiningForm.controls.room_in.value:joiningForm.controls.scan_type.value:joiningForm.controls.scan_type.value | date:'dd-MM-yyyy'}}</label>
+                <div *ngIf="joiningForm.controls.booking_date.invalid && (joiningForm.controls.booking_date.dirty || joiningForm.controls.booking_date.touched)" class="help-block">
+                   Appointment Date required
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-2 col-sm-4 col-xs-12">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.time.invalid && (joiningForm.controls.time.dirty || joiningForm.controls.time.touched) }">
+                <label for="exampleInputEmail1">Time</label>
+                <select formControlName="time" class="form-control">
+                    <option value="Morining">Morining</option>
+                    <option value="Afternoon">After noon</option>
+                    <option value="Evening">Evening</option>
+                </select>
+                <div *ngIf="joiningForm.controls.time.invalid && (joiningForm.controls.time.dirty || joiningForm.controls.time.touched)" class="help-block">
+                   Time field is required
+                </div>
+            </div>
+        </div> -->
+        <div class="col-md-3 col-sm-4 col-xs-12">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.scanner.invalid && (joiningForm.controls.scanner.dirty || joiningForm.controls.scanner.touched) }">
+                <label>Scanner <span style="color:red;">*</span></label>
+                <select formControlName="scanner" data-live-search="true" class="form-control selectpicker2" multiple>
+                    <option *ngFor="let scanner of scanners" value="{{ scanner.user_id }}">{{ scanner.first_name }} {{ scanner.last_name }}</option>
+                </select>
+                <div *ngIf="joiningForm.controls.scanner.invalid && (joiningForm.controls.scanner.dirty || joiningForm.controls.scanner.touched)" class="help-block">
+                   Scanner required
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="clear:both;">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.room_in.invalid && (joiningForm.controls.room_in.dirty || joiningForm.controls.room_in.touched) }">
+                <label>Rams In & Rams Out Dates <span style="color:red;">*</span> </label>
+                <div class="input-group">
+                    <input type="text" class="form-control"  bsDaterangepicker [(ngModel)]="bsRangeValue" [bsConfig]="bsConfig" value="{{ joiningForm.controls.room_in.value[0] | date:'dd-MM-yyyy' }} - {{ joiningForm.controls.room_in.value[1] | date:'dd-MM-yyyy' }}" formControlName="room_in" readonly>
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+                <div *ngIf="joiningForm.controls.room_in.invalid && (joiningForm.controls.room_in.dirty || joiningForm.controls.room_in.touched)" class="help-block">
+                   Please select room in date
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.introduced_days.invalid && (joiningForm.controls.introduced_days.dirty || joiningForm.controls.introduced_days.touched) }">
+                <label>Introduced days</label>
+
+                <input type="text" class="form-control" placeholder="Enter days" formControlName="introduced_days" value="{{ joiningForm.controls.introduced_days | introducedDays:joiningForm.controls.room_in.value:joiningForm.controls.booking_date.value }}" readonly> 
+
+                <div *ngIf="joiningForm.controls.introduced_days.invalid && (joiningForm.controls.introduced_days.dirty || joiningForm.controls.introduced_days.touched)" class="help-block">
+                   Please Select Introduced days
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.joining_duration.invalid && (joiningForm.controls.joining_duration.dirty || joiningForm.controls.joining_duration.touched) }">
+
+                <label for="exampleInputEmail1">Joining Duration</label>
+                <input type="text" class="form-control" placeholder="75" formControlName="joining_duration" value="{{ joiningForm.controls.joining_duration | joiningDays:joiningForm.controls.room_in.value }}" readonly>
+                <div *ngIf="joiningForm.controls.joining_duration.invalid && (joiningForm.controls.joining_duration.dirty || joiningForm.controls.joining_duration.touched)" class="help-block">
+                   Please select joining duration
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="clear:both;">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.room_free_days.invalid && (joiningForm.controls.room_free_days.dirty || joiningForm.controls.room_free_days.touched) }">
+                <label for="exampleInputEmail1">Rams free days</label>
+                <input type="text" class="form-control" placeholder="Enter days" formControlName="room_free_days" value="{{ joiningForm.controls.room_free_days | roomFreeDays:joiningForm.controls.room_in.value:joiningForm.controls.booking_date.value }}" readonly>
+                <div *ngIf="joiningForm.controls.room_free_days.invalid && (joiningForm.controls.room_free_days.dirty || joiningForm.controls.room_free_days.touched)" class="help-block">
+                   Please room out date
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.ideal_days.invalid && (joiningForm.controls.ideal_days.dirty || joiningForm.controls.ideal_days.touched) }">
+                <label for="exampleInputEmail1">Ideal Days</label>
+                <input type="text" class="form-control" placeholder="Enter days" formControlName="ideal_days" value="{{ joiningForm.controls.ideal_days | idealDays:joiningForm.controls.scan_type.value }}" readonly>
+                <div *ngIf="joiningForm.controls.ideal_days.invalid && (joiningForm.controls.ideal_days.dirty || joiningForm.controls.ideal_days.touched)" class="help-block">
+                   Ideal Days required
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display: none">
+            <div class="form-group" [ngClass]="{ 'has-error': joiningForm.controls.date_to_scan.invalid && (joiningForm.controls.date_to_scan.dirty || joiningForm.controls.date_to_scan.touched) }">
+                <label for="exampleInputEmail1">Ideal Date To Scan</label>
+                <input type="hidden" class="form-control" placeholder="Enter days" formControlName="date_to_scan" value="{{ joiningForm.controls.date_to_scan | scanDate:joiningForm.controls.room_in.value:joiningForm.controls.scan_type.value:joiningForm.controls.scan_type.value | date:'dd-MM-yyyy'}}" readonly>
+                <div *ngIf="joiningForm.controls.date_to_scan.invalid && (joiningForm.controls.date_to_scan.dirty || joiningForm.controls.date_to_scan.touched)" class="help-block">
+                   Please room out date
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

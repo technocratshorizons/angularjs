@@ -1,0 +1,55 @@
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <!-- <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
+            </div>
+            <div class="pull-left info" style="height: 30px;">
+                <p>{{ _session.first_name }} {{ _session.last_name }}</p>
+                <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
+            </div>
+        </div>
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <!-- <li class="header">MAIN NAVIGATION</li> -->        
+            <li [routerLinkActive]="['active']">
+                <a  routerLink="/dashboard">
+                    <i class="fa fa-th"></i> <span>Dashboard</span>
+                </a>
+            </li>
+            <li [routerLinkActive]="['active']" >
+                <a routerLink="/booking/add">
+                    <i class="fa fa-pencil"></i> <span>New Booking</span>
+                </a>
+            </li>
+            <li >
+                <a (click)="popitup()">
+                    <i class="fa fa-calendar" aria-hidden="true"></i> <span>Calendar</span>
+                </a>
+            </li>
+            <li [routerLinkActive]="['active']" >
+                <a routerLink="/booking/list">
+                    <i class="fa fa-ticket" aria-hidden="true"></i> <span>Bookings</span>
+                </a>
+            </li>
+            <li *ngIf="_session.user_type=='Admin'" [routerLinkActive]="['active']" >
+                <a routerLink="/clients/list">
+                    <i class="fa fa-user-circle"></i> <span>Clients</span>
+                </a>
+            </li>
+            <li *ngIf="_session.user_type=='Admin'" [routerLinkActive]="['active']" >
+                <a routerLink="/admin/list">
+                    <i class="fa fa-user-o"></i> <span>Admins</span>
+                </a>
+            </li>
+            <li *ngIf="_session.user_type=='Admin'" [routerLinkActive]="['active']" >
+                <a routerLink="/scanner/list">
+                    <i class="fa fa-user-circle-o"></i> <span>Scanner</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

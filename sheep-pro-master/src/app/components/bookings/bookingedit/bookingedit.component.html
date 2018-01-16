@@ -1,0 +1,251 @@
+<appheader></appheader>
+<appsidebar></appsidebar>
+    <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Bookings
+            <small>Bookings</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a routerLink="/dashboard" ><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a routerLink="/booking/list" >Bookings</a></li>
+            <li>Edit Booking</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="box-title">Edit Booking</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.client_details.invalid && (myForm.controls.client_details.dirty || myForm.controls.client_details.touched) }">
+                                        <label for="">Client Details <span style="color:red;">*</span></label>
+                                        <div class="row">
+                                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                                <select class="form-control selectpicker2" data-live-search="true"  formControlName="client_details" readonly>
+                                                  <option value="">Select Clinet</option>
+                                                  <option disabled *ngFor="let client of clients" value="{{ client.user_id }}">{{ client.first_name }} {{ client.last_name }}</option>
+                                                </select>
+                                                <div *ngIf="myForm.controls.client_details.invalid && (myForm.controls.client_details.dirty || myForm.controls.client_details.touched)" class="help-block">
+                                                      Please select a client.
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 col-xs-12 text-left">
+                                                <a routerLink="/clients/add" class="btn btn-sm btn-primary add_new_client">Add New</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--addresses-->
+                            <div>
+                                <div  class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <span>Joining</span>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-4 col-xs-12">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.number_of_sheep.invalid && (myForm.controls.number_of_sheep.dirty || myForm.controls.number_of_sheep.touched) }">
+                                                    <label for="exampleInputEmail1">Number of sheep <span style="color:red;">*</span></label>
+                                                    <input type="text"  class="form-control" formControlName="number_of_sheep" placeholder="100" value="">
+                                                    <div *ngIf="myForm.controls.number_of_sheep.invalid && (myForm.controls.number_of_sheep.dirty || myForm.controls.number_of_sheep.touched)" class="help-block">
+                                                        Number of sheep field required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-4 col-xs-12">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.scan_type.invalid && (myForm.controls.scan_type.dirty || myForm.controls.scan_type.touched) }">
+                                                    <label for="exampleInputEmail1">Scan Type <span style="color:red;">*</span></label>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <input type="radio" [checked]="true" value="Single" formControlName="scan_type">
+                                                            <label for="">WET/DRY</label>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <input type="radio" value="Multiple" formControlName="scan_type">
+                                                            <label for="">Multiples</label>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="myForm.controls.scan_type.invalid && (myForm.controls.scan_type.dirty || myForm.controls.scan_type.touched)" class="help-block">
+                                                       Scan type required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-4 col-xs-12">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.booking_date.invalid && (myForm.controls.booking_date.dirty || myForm.controls.booking_date.touched) }">
+                                                    <label for="exampleInputEmail1"> Appointment Date <span style="color:red;">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" 
+                                                          bsDaterangepicker [(ngModel)]="bsRangesValue" formControlName="booking_date" [bsConfig]="bsConfig"
+                                                           value="{{ myForm.controls.booking_date.value[0] | date:'dd-MM-yyyy' }} - {{ myForm.controls.booking_date.value[1] | date:'dd-MM-yyyy' }}" >
+                                                        <div class="input-group-addon" >
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
+                                                    </div>
+                                                    <label for="">Ideal Date {{ myForm.controls.date_to_scan | scanDate:myForm.controls.room_in.value:myForm.controls.scan_type.value:myForm.controls.scan_type.value | date:'dd-MM-yyyy'}}</label>
+
+                                                    <div *ngIf="myForm.controls.booking_date.invalid && (myForm.controls.booking_date.dirty || myForm.controls.booking_date.touched)" class="help-block">
+                                                       Appointment Date required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-4 col-xs-12">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.scanner.invalid && (myForm.controls.scanner.dirty || myForm.controls.scanner.touched) }">
+                                                    <label>Scanner <span style="color:red;">*</span></label>
+
+                                                    <select formControlName="scanner" data-live-search="true" id="role-select" class="form-control scanner" multiple *ngIf="current.status!='booking-pending'" readonly>
+                                                        <option  *ngFor="let scanner of scanners" value="{{ scanner.user_id }}"  disabled>{{ scanner.first_name }} {{ scanner.last_name }}</option>
+                                                    </select>
+
+                                                    <select formControlName="scanner" data-live-search="true" id="role-select" class="form-control scanner" multiple *ngIf="current.status=='booking-pending'">
+                                                        <option  *ngFor="let scanner of scanners" value="{{ scanner.user_id }}">{{ scanner.first_name }} {{ scanner.last_name }}</option>
+                                                    </select>
+
+                                                    <div *ngIf="myForm.controls.scanner.invalid && (myForm.controls.scanner.dirty || myForm.controls.scanner.touched)" class="help-block">
+                                                       Scanner required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="clear:both;">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.room_in.invalid && (myForm.controls.room_in.dirty || myForm.controls.room_in.touched) }">
+                                                    <label>Rams In & Rams Out Dates <span style="color:red;">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"  bsDaterangepicker [(ngModel)]="bsRangeValue" [bsConfig]="bsConfig" formControlName="room_in" value="{{ myForm.controls.room_in.value[0] | date:'dd-MM-yyyy' }} - {{ myForm.controls.room_in.value[1] | date:'dd-MM-yyyy' }}">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="myForm.controls.room_in.invalid && (myForm.controls.room_in.dirty || myForm.controls.room_in.touched)" class="help-block">
+                                                       Please select room in date
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.introduced_days.invalid && (myForm.controls.introduced_days.dirty || myForm.controls.introduced_days.touched) }">
+                                                    <label>Introduced days</label>
+
+                                                    <input type="text" class="form-control" placeholder="Enter days" formControlName="introduced_days" value="{{ myForm.controls.introduced_days | introducedDays:myForm.controls.room_in.value:myForm.value.booking_date }}" readonly> 
+
+                                                    <div *ngIf="myForm.controls.introduced_days.invalid && (myForm.controls.introduced_days.dirty || myForm.controls.introduced_days.touched)" class="help-block">
+                                                       Please Select Introduced days
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.joining_duration.invalid && (myForm.controls.joining_duration.dirty || myForm.controls.joining_duration.touched) }">
+
+                                                    <label for="exampleInputEmail1">Joining Duration</label>
+                                                    <input type="text" class="form-control" placeholder="75" formControlName="joining_duration" value="{{ myForm.controls.joining_duration | joiningDays:myForm.controls.room_in.value }}" readonly>
+                                                    <div *ngIf="myForm.controls.joining_duration.invalid && (myForm.controls.joining_duration.dirty || myForm.controls.joining_duration.touched)" class="help-block">
+                                                       Please select joining duration
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="clear:both;">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.room_free_days.invalid && (myForm.controls.room_free_days.dirty || myForm.controls.room_free_days.touched) }">
+                                                    <label for="exampleInputEmail1">Rams free days</label>
+                                                    <input type="text" class="form-control" placeholder="Enter days" formControlName="room_free_days" value="{{ myForm.controls.room_free_days | roomFreeDays:myForm.controls.room_in.value:myForm.controls.booking_date.value }}" readonly>
+                                                    <div *ngIf="myForm.controls.room_free_days.invalid && (myForm.controls.room_free_days.dirty || myForm.controls.room_free_days.touched)" class="help-block">
+                                                       Please room out date
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.ideal_days.invalid && (myForm.controls.ideal_days.dirty || myForm.controls.ideal_days.touched) }">
+                                                    <label for="exampleInputEmail1">Ideal Days</label>
+                                                    <input type="text" class="form-control" placeholder="Enter days" formControlName="ideal_days" value="{{ myForm.controls.ideal_days | idealDays:myForm.controls.scan_type.value }}" readonly>
+                                                    <div *ngIf="myForm.controls.ideal_days.invalid && (myForm.controls.ideal_days.dirty || myForm.controls.ideal_days.touched)" class="help-block">
+                                                       Ideal Days required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="display: none;">
+                                                <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.date_to_scan.invalid && (myForm.controls.date_to_scan.dirty || myForm.controls.date_to_scan.touched) }">
+                                                    <label for="exampleInputEmail1">Ideal Date To Scan</label>
+                                                    <input type="text" class="form-control" placeholder="Enter days" formControlName="date_to_scan" value="{{ myForm.controls.date_to_scan | scanDate:myForm.controls.room_in.value:myForm.controls.scan_type.value | date:'dd-MM-yyyy' }}" readonly>
+                                                    <div *ngIf="myForm.controls.date_to_scan.invalid && (myForm.controls.date_to_scan.dirty || myForm.controls.date_to_scan.touched)" class="help-block">
+                                                       Please room out date
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                    <div class="form-group" [ngClass]="{ 'has-error': myForm.controls.unavailable_dates.invalid && (myForm.controls.unavailable_dates.dirty || myForm.controls.unavailable_dates.touched) }">
+                                        <label for="">Unavailable Dates</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control unavailable_dates" formControlName="unavailable_dates" (change)="ChangeEvent($event)" >
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                         <div *ngIf="myForm.controls.unavailable_dates.invalid && (myForm.controls.unavailable_dates.dirty || myForm.controls.unavailable_dates.touched)" class="help-block">                                    Please select unavailable days
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="">Client Confirmation</label>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="checkbox" formControlName="client_confirmation_email">
+                                                <label for="">Email</label>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <input type="checkbox" formControlName="client_confirmation_phone">
+                                                <label for="">SMS</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="">Notes</label>
+                                        <textarea rows="4" placeholder="Add Notes" class="form-control" formControlName="notes"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-20">
+                                <button [ladda]="isLoading" type="submit" class="btn btn-primary pull-right common-submit-btn" >Submit</button>
+                            </div>
+                            <div class="clearfix"></div>
+                            <!-- <div class="margin-20">
+                                <div>myForm details:-</div>
+                                <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+                                <pre>form value: <br>{{myForm.value | json}}</pre>
+                            </div> -->
+                        </form>
+                    </div>            <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<appfooter></appfooter>

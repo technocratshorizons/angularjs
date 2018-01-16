@@ -1,0 +1,299 @@
+/* The container */
+.main-sidebar .user-panel
+{
+    height: 50px !important;
+}
+
+.checkbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.simple-notification-wrapper
+{
+    z-index: 10000000000 !important;
+}
+.joining_date
+{
+    font-size: 13px;
+    margin-left: 10px;
+    color: black;
+    font-weight: 700;
+    position: absolute;
+    right: 40px;
+    top: 41px;
+}
+
+        .jaspero__overlay {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(141, 150, 165, 0.71);
+            transform: translateZ(0);
+            opacity: 0;
+            transition: all .5s cubic-bezier(.35,0,.25,1);
+            position: fixed;
+            z-index: 109;
+        }
+
+        .jaspero__dialog {
+            min-width: 300px ;
+            max-width: 50% ;
+            max-height: 50% ;
+            display: -ms-flexbox ;
+            display: flex ;
+            -ms-flex-flow: column ;
+            flex-flow: column ;
+            overflow: hidden ;
+            position: relative ;
+            z-index: 110 ;
+            outline: none ;
+            border-radius: 2px ;
+            opacity: 0 ;
+            box-shadow: 0 7px 9px -4px rgba(0,0,0,.2), 0 14px 21px 2px rgba(0,0,0,.14), 0 5px 26px 4px rgba(0,0,0,.12) ;
+            -ms-transform: scale(.9,.85) ;
+            transform: scale(.9,.85) ;
+            -ms-transform-origin: center center ;
+            transform-origin: center center ;
+            transition: opacity .4s cubic-bezier(.25,.8,.25,1),transform .4s cubic-bezier(.25,.8,.25,1) .05s ;
+            will-change: opacity,transform ;
+            background-color: #fff ;
+            color: rgba(0, 0, 0, .87) ;
+        }
+
+        .jaspero__dialog-icon {
+            padding: 40px !important;
+            text-align: center !important;
+        }
+        .jaspero__dialog-icon   svg {
+            width: 50px !important;
+            height: 50px !important;
+        }
+
+        .jaspero__dialog-icon   svg   path {
+            fill: white !important;
+        }
+
+        .jaspero__dialog-title {
+            font-size: 24px !important;
+            font-weight: 500 !important;
+            letter-spacing: .005em !important;
+            line-height: 26px !important;
+            margin-bottom: 20px !important;
+            padding: 24px 24px 0 !important;
+            text-transform: capitalize !important;
+        }
+
+        .jaspero__dialog-content {
+            padding: 0 24px 24px !important;
+            -ms-flex: 1 !important;
+            flex: 1 !important;
+            overflow: auto !important;
+            position: relative !important;
+        }
+
+        .jaspero__dialog-actions {
+            min-height: 52px !important;
+            padding: 8px 8px 8px 24px !important;
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-align: center !important;
+            align-items: center !important;
+            -ms-flex-pack: end !important;
+            justify-content: flex-end !important;
+            position: relative !important;
+        }
+
+        .jaspero__dialog-actions   button {
+            min-width: 88px !important;
+            min-height: 36px !important;
+            margin: 6px 8px !important;
+            padding: 0 16px !important;
+            display: inline-block !important;
+            position: relative !important;
+            overflow: hidden !important;
+            outline: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            cursor: pointer !important;
+            background: none !important;
+            border: 0 !important;
+            border-radius: 2px !important;
+            transition: all .4s cubic-bezier(.25,.8,.25,1) !important;
+            color: inherit !important;
+            font-family: inherit !important;
+            font-size: 14px !important;
+            font-style: inherit !important;
+            font-variant: inherit !important;
+            font-weight: 500 !important;
+            letter-spacing: inherit !important;
+            line-height: 36px !important;
+            text-align: center !important;
+            text-transform: uppercase !important;
+            text-decoration: none !important;
+            vertical-align: top !important;
+            white-space: nowrap !important;
+        }
+
+        .jaspero__dialog-actions   button.default {
+            color: black !important;
+        }
+
+        .jaspero__dialog-actions   button.default:hover {
+            background-color:  rgb(171, 168, 168) !important;
+        }
+
+        .jaspero__dialog-actions   button.primary {
+            background-color: rgb(60, 141, 188) !important;
+            color: white !important;
+        }
+
+        .jaspero__dialog-actions   button.primary:hover {
+            background-color: rgb(60, 141, 188) !important;
+        }
+
+        .jaspero__dialog-actions   button.raised {
+            box-shadow: 0 1px 5px rgba(0,0,0,.2), 0 2px 2px rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12) !important;
+        }
+
+        .success[_nghost-c6]   .jaspero__dialog-icon {background: #17A398 !important}
+        .error[_nghost-c6]   .jaspero__dialog-icon {background: #D64550 !important}
+        .warning[_nghost-c6]   .jaspero__dialog-icon {background: #FFC857 !important}
+        .info[_nghost-c6]   .jaspero__dialog-icon {background: #8FBFE0 !important}
+
+
+
+.bs-datepicker {
+    z-index: 102500 !important;
+}
+
+.input-group .form-control {
+    z-index: 0 !important;
+}
+.fc button, .fc-button-group
+{
+display: block !important;
+}
+
+.modal-header
+{
+    background: #3c8dbc !important;
+    color: white !important;
+}
+.modal-header .close {
+    margin-top: -2px !important;
+    color: white !important;
+    opacity: 1 !important;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.fc-day-number
+{
+    color: black;
+}
+.fc-widget-header
+{
+    background: #3c8dbc !important;
+    color: white !important;
+}
+.fc-widget-content:first-of-type {
+    background: white;
+}
+.fc-event
+{
+    background-color: #3c8dbc !important;
+    border-color: #3c8dbc !important;
+}
+.content-wrapper{
+    min-height: calc(100vh - 100px) !important;
+}
+.add_new_client{
+   padding: 7px 22px !important;
+}
+@media only screen and (max-width: 768px) {
+    .add_new_client {
+        margin-top: 10px;
+        padding: 7px 22px !important;
+    }
+}
+.common-submit-btn{background: #3c8dbc!important; padding: 5px 18px!important;font-size: 14px!important;}
